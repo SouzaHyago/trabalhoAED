@@ -21,7 +21,7 @@ gcc testes.c -o testes
 ```bash
 ./testes > tempos.csv
 ```
-# Windows (CMD ou PowerShell)
+## Windows (CMD ou PowerShell)
 ```cmd
 testes.exe > tempos.csv
 ```
@@ -30,11 +30,11 @@ testes.exe > tempos.csv
 mkdir graficos
 ``` 
 # 4. Instalar Python 3
-# VIA DNF
+## VIA DNF
 ```bash
 sudo dnf install python3
 ```
-# VIA APT
+## VIA APT
 ```bash
 sudo apt install python3
 ```
@@ -44,11 +44,11 @@ pip3 install matplotlib seaborn pandas
 ```
 
 # 6. Rodar o script para gerar gráficos
-# Linux
+## Linux
 ```bash
 python3 graphCreator.py
 ```
-# Windows
+## Windows
 ```cmd
 python graphCreator.py
 ```
@@ -66,4 +66,5 @@ Estrutura final dos arquivos
 ├─ graphCreator.py
 ├─ tempos.csv       # gerado pelo testes.c
 └─ graficos/        # pasta onde os gráficos serão salvos
+
 
