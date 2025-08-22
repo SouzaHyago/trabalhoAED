@@ -1,11 +1,7 @@
 # [![Linguagem C](https://img.shields.io/badge/linguagem-C-blue.svg)](https://en.wikipedia.org/wiki/C_(programming_language)) [![Linguagem Python](https://img.shields.io/badge/linguagem-Python-yellow.svg)](https://www.python.org/)
 
 
-
-[Veja o passo a passo para gerar sua primeira análise](#-primeiros-passos).
-[Veja como o projeto projeto funciona](##-Como-Funciona).
-
-Este guia para compilar o projeto, executar os testes e gerar os gráficos de desempenho.
+guia para compilar o projeto, executar os testes e gerar os gráficos de desempenho.
 
 **Você precisará de um compilador C (como o GCC) e do Python 3 instalados.**
 
@@ -44,3 +40,4 @@ O projeto é dividido em componentes com responsabilidades claras:
 * **`main.c`**: Onde você deve implementar os algoritmos principais que deseja analisar.
 * **`testes.c`**: Um ambiente preparado para chamar suas funções de `main.c`, medir o tempo de execução com diferentes entradas e imprimir os resultados em formato CSV.
 * **`graphCreator.py`**: Lê o `tempos.csv` gerado pela etapa de testes e utiliza `matplotlib` e `seaborn` para criar visualizações de dados, salvando-as como arquivos de imagem.
+
