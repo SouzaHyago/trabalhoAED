@@ -12,7 +12,6 @@ Este repositório está organizado em dois arquivos principais:
 
 ## Gerando os dados para análise
 
-```bash
 # 1. Compilar o arquivo de testes
 gcc testes.c -o testes
 
@@ -58,3 +57,4 @@ Estrutura final dos arquivos
 ├─ graphCreator.py
 ├─ tempos.csv       # gerado pelo testes.c
 └─ graficos/        # pasta onde os gráficos serão salvos
+
