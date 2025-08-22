@@ -139,7 +139,7 @@ int main(){
 
         case 1://inversão da ordem **Esta opção está chamando a funcção que faz os teste de tempo de inversao**
 
-            scanf("%d%d",s,n);            
+            scanf("%d%d",&s,&n);            
             double media = teste_inverter(s,n);//teste_inverter(int qtdExecucoes,tamanhoVetor)
             printf("a media para %d execucoes é: %f\n",s,media);
             break;
