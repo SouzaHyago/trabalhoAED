@@ -95,36 +95,6 @@ void buscaBinariaIterativa(int arr[], int inicio, int fim, int n){
 }
 #pragma endregion
 
-#pragma region funcoes_de_realizacao_de_testes //para facilitar os testes e calculos
-
-double teste_inverter(int qtdExecucoes,int tamanhoVetor){
-
-    clock_t t;//clock_t é o tipo
-    double media = 0;
-    
-    for (int i = 0; i < qtdExecucoes; i++){
-        
-        int n = tamanhoVetor, *arr = NULL;
-        arr = realloc(arr,n * sizeof(int));//Realocando memória
-        
-        //Adicionando valores aleatorios de 0 a 10 x vezes
-        for (int j = 0; j < n; j++){
-            arr[j] = rand() % 10;
-        }
-        
-        t = clock();//Pega o tempo de quando a função inicia
-        inverter(arr,0,n);
-        t = clock()-t; //Tempo que a funcao terminou - tempo de inicio
-        
-        media += ((double)t)/CLOCKS_PER_SEC;//faço o cast de t pra double e divido pela constante CLOCK_PER_SEC
-        printf("exec: %d - %f\n",i,((double)t)/CLOCKS_PER_SEC);
-    }
-
-    return media/qtdExecucoes;//Calculo a média de tempo para n execucoes
-            
-}
-
-#pragma endregion
 
 int main(){
 
@@ -139,15 +109,22 @@ int main(){
 
         case 1://inversão da ordem **Esta opção está chamando a funcção que faz os teste de tempo de inversao**
 
-            scanf("%d%d",&s,&n);            
-            double media = teste_inverter(s,n);//teste_inverter(int qtdExecucoes,tamanhoVetor)
-            printf("a media para %d execucoes é: %f\n",s,media);
+            scanf("%d",&n);//Recebendo o tamanho do vetor    
+
+            arr = realloc(arr,n * sizeof(int));//Realocando memória
+
+            for (int i = 0; i < n; i++){
+                arr[i] = rand() % 10;//Adicionando valores aleatorios de 0 a 10 x vezes
+            }
+
+            inverter(arr,0,n);
             break;
 
         case 2://Busca Sequencial
 
             scanf("%d",&n);//Recebendo o tamanho do vetor
             scanf("%d",&s);//Valor a ser encontrado
+
             arr = realloc(arr,n * sizeof(int));//Realocando memória
 
             for (int i = 0; i < n; i++){
