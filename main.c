@@ -40,7 +40,7 @@ int buscaSequencial(int arr[],int length,int s){
 }
 
 
-//Busca Binária Iterativa no vetor de entrada.
+//Busca Binária Recursiva no vetor de entrada.
 int buscaBinariaRecursiva(int arr[], int inicio,int fim,int n){
 
     if(fim < inicio) return 0;//1° caso base.
@@ -91,6 +91,8 @@ int main(){
       scanf("%d", &arr[i]); //recebendo os valores de arr
     }
 
+    int invertido = 0; //para verificar se já foi invertido - busca binária necessita de vetor ordenado
+
     int op; //comando do menu
     do {
       scanf("%d", &op);
@@ -98,8 +100,10 @@ int main(){
       switch (op){
         case 1:
             inverter(arr, 0, n - 1);
+            invertido = 1; //vetor invertido - descrecente
             for (int i = 0; i < n; i++){
-                printf("%d ", arr[i]);
+                if (i > 0) printf(" ");
+                printf("%d", arr[i]);
             }
             printf("\n");
             break;
@@ -116,6 +120,13 @@ int main(){
         case 3: {
             int p; //valor procurado
             scanf("%d", &p);
+
+            //para garantir que esteja ordenado
+            if (invertido == 1){
+                inverter(arr, 0, n - 1);
+                invertido = 0;
+            }
+
             if (buscaBinariaIterativa(arr, 0, n - 1, p) == 1){
                 printf("SIM\n");
             } else {
@@ -126,6 +137,13 @@ int main(){
         case 4: {
             int p; //valor procurado
             scanf("%d", &p);
+
+            //para garantir que esteja ordenado
+            if (invertido == 1){
+                inverter(arr, 0, n - 1);
+                invertido = 0;
+            }
+
             if (buscaBinariaRecursiva(arr, 0, n - 1, p) == 1){
                 printf("SIM\n");
             } else {
@@ -133,6 +151,8 @@ int main(){
             }
             break;
         }
+        case 5:
+            break;
         default:
             break;
       }
