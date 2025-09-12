@@ -6,8 +6,6 @@
 
 #pragma region funcoes_principais //Apenas para organizar a vizualização do código
 
-//**Lembrar de mexer nos outPuts destas funções
-
 //inversão da ordem do vetor de entrada
 void inverter(int arr[], int inicio,int fim){
     
@@ -83,80 +81,63 @@ int buscaBinariaIterativa(int arr[], int inicio, int fim, int n){
 
 
 int main(){
-
-    int n, op, s,*arr = NULL;
     clock_t t;
 
-    while (op != 5){
+    int n; //tamanho do vetor
+    scanf("%d", &n); 
 
-        scanf("%d",&op);
+    int *arr = malloc (sizeof(int) * n); //o vetor
+    for (int i = 0; i < n; i++){
+      scanf("%d", &arr[i]); //recebendo os valores de arr
+    }
 
-        switch (op){
+    int op; //comando do menu
+    do {
+      scanf("%d", &op);
 
-        case 1://inversão da ordem **Esta opção está chamando a funcção que faz os teste de tempo de inversao**
-
-            scanf("%d",&n);//Recebendo o tamanho do vetor    
-
-            arr = realloc(arr,n * sizeof(int));//Realocando memória
-
+      switch (op){
+        case 1:
+            inverter(arr, 0, n - 1);
             for (int i = 0; i < n; i++){
-                arr[i] = rand() % 10;//Adicionando valores aleatorios de 0 a 10 x vezes
+                printf("%d ", arr[i]);
             }
-
-            inverter(arr,0,n);
+            printf("\n");
             break;
-
-        case 2://Busca Sequencial
-
-            scanf("%d",&n);//Recebendo o tamanho do vetor
-            scanf("%d",&s);//Valor a ser encontrado
-
-            arr = realloc(arr,n * sizeof(int));//Realocando memória
-
-            for (int i = 0; i < n; i++){
-                arr[i] = i;//adicionando valores de forma ordenada
+        case 2:{
+            int p; //valor procurado
+            scanf("%d", &p);
+            if (buscaSequencial(arr, n, p) == 1){
+                printf("SIM\n");
+            } else {
+                printf("NAO\n");
             }
-
-            buscaSequencial(arr,n-1,s);//n-1 para já passar o final do vetor de maneira correta
-            break;
-
-        case 3://Busca binária iterativa no vetor de entrada
-
-            scanf("%d",&n);//Recebendo o tamanho do vetor
-            scanf("%d",&s);//Valor a ser encontrado
-
-            arr = realloc(arr,n * sizeof(int));//Realocando memória
-
-            for (int i = 0; i < n; i++){
-                arr[i] = i;//adicionando valores de forma ordenada
-            }
-            
-
-            buscaBinariaIterativa(arr,0,n-1,s);//n-1 para já passar o final do vetor de maneira correta
-            break;
-                    
-        case 4://Busca binária Recursiva no vetor de entrada
-
-            scanf("%d",&n);//Recebendo o tamanho do vetor
-            scanf("%d",&s);//Valor a ser encontrado
-
-            arr = realloc(arr,n * sizeof(int));//Realocando memória
-
-            for (int i = 0; i < n; i++){
-                arr[i] = i;//Adicionando Valores de forma ordenada
-            }
-           
-            buscaBinariaRecursiva(arr,0,n-1,s);//n-1 para já passar o final do vetor de maneira correta
-            break;
-
-        default:
             break;
         }
-
-    }
+        case 3: {
+            int p; //valor procurado
+            scanf("%d", &p);
+            if (buscaBinariaIterativa(arr, 0, n - 1, p) == 1){
+                printf("SIM\n");
+            } else {
+                printf("NAO\n");
+            }
+            break;
+        }
+        case 4: {
+            int p; //valor procurado
+            scanf("%d", &p);
+            if (buscaBinariaRecursiva(arr, 0, n - 1, p) == 1){
+                printf("SIM\n");
+            } else {
+                printf("NAO\n");
+            }
+            break;
+        }
+        default:
+            break;
+      }
+    } while (op != 5);
     
-
-
+    free(arr);
     return 0;
-
 }
