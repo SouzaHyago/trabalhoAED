@@ -114,7 +114,7 @@ double teste_inverter(int qtdExecucoes,int tamanhoVetor){
         
         free(arr);
     }
-    printf("inverter, %d, %ld, %09ld\n",tamanhoVetor,sSoma,(double) nSoma/qtdExecucoes);
+    printf("inverter, %d, %ld, %09ld\n",tamanhoVetor,sSoma,nSoma/qtdExecucoes);
 
     return 0;//Calculo a média de tempo para n execucoes
             
@@ -149,7 +149,7 @@ void teste_buscaSequencial(int qtdExecucoes, int n){
         
         free(arr);
     }
-    printf("Busca_Sequencial, %d, %ld, %09ld\n",n,sSoma,(double) nSoma/qtdExecucoes);
+    printf("Busca_Sequencial, %d, %ld, %09ld\n",n,sSoma,nSoma/qtdExecucoes);
 }
 
 void teste_buscaBinariaIterativa(int qtdExecucoes, int n){
@@ -181,7 +181,7 @@ void teste_buscaBinariaIterativa(int qtdExecucoes, int n){
         
         free(arr);
     }
-    printf("Busca Binaria Iterativa, %d, %ld, %09ld\n",n,sSoma,(double) nSoma/qtdExecucoes);
+    printf("Busca Binaria Iterativa, %d, %ld, %09ld\n",n,sSoma,nSoma/qtdExecucoes);
 }
 void teste_buscaBinariaRecursiva(int qtdExecucoes, int n){
 
@@ -212,7 +212,7 @@ void teste_buscaBinariaRecursiva(int qtdExecucoes, int n){
         
         free(arr);
     }
-    printf("Busca Binaria Recursiva, %d, %ld, %09ld\n",n,sSoma,(double) nSoma/qtdExecucoes);
+    printf("Busca Binaria Recursiva, %d, %ld, %09ld\n",n,sSoma,nSoma/qtdExecucoes);
 }
 
 
