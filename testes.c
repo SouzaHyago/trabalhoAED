@@ -2,7 +2,8 @@
 
 #include<stdio.h>
 #include<stdlib.h>
-#include<time.h>
+#include <linux/time.h>
+#include <time.h>
 
 #pragma region funcoes_principais //Apenas para organizar a vizualização do código
 
@@ -67,7 +68,6 @@ int buscaBinariaIterativa(int arr[], int inicio, int fim, int n){
 
         if(arr[meio] == n) return 1;
 
-
         if (n < arr[meio]){
             fim = meio - 1;//Pegar a metade esquerda da lista
         }else{
@@ -83,8 +83,8 @@ int buscaBinariaIterativa(int arr[], int inicio, int fim, int n){
 
 double teste_inverter(int qtdExecucoes,int tamanhoVetor){
 
-    clock_t t;//clock_t vem da biblioteca time.h e facilita o cálculo do tempo  
-    double media = 0;
+    struct timespec inicio, fim;  
+    long segundos,nanoSegundos,sSoma = 0,nSoma = 0;
     
     for (int i = 0; i < qtdExecucoes; i++){
         
@@ -92,46 +92,127 @@ double teste_inverter(int qtdExecucoes,int tamanhoVetor){
         
         //Adicionando valores aleatorios de 0 a 10 x vezes
         for (int j = 0; j < tamanhoVetor; j++){
-            arr[j] = rand() % 10;
+            arr[j] = j;
         }
         
-        t = clock();//clock() calcula a quantidade de ticks desde o inicio do programa.
+        clock_gettime(CLOCK_MONOTONIC,&inicio);
         inverter(arr,0,tamanhoVetor-1);
-        t = clock()-t; //agora é só fazer a diferença entre o tempo de fim - inicio da função.
+        clock_gettime(CLOCK_MONOTONIC,&fim);
+
+        segundos = fim.tv_sec - inicio.tv_sec;
+        nanoSegundos = fim.tv_nsec - inicio.tv_nsec;
+
+        if (nanoSegundos < 0 ){
+            segundos -= 1;
+            nanoSegundos += 1000000000;
+        }
         
-        
+        nSoma += nanoSegundos;
+        sSoma += segundos;
+
         //CLOCKS_PER_SEC é uma constante com a quantidade de "ticks" por segundo
-        media += ((double)t)/CLOCKS_PER_SEC;//faço o cast de t pra double e divido pela constante CLOCK_PER_SEC
         
         free(arr);
-        
     }
-    printf("inverter, %d, %f\n",tamanhoVetor,media/qtdExecucoes);
+    printf("inverter, %d, %ld, %09ld\n",tamanhoVetor,sSoma,(double) nSoma/qtdExecucoes);
 
-    return media/qtdExecucoes;//Calculo a média de tempo para n execucoes
+    return 0;//Calculo a média de tempo para n execucoes
             
 }
 
 void teste_buscaSequencial(int qtdExecucoes, int n){
-    clock_t t;//clock_t vem da biblioteca time.h e facilita o cálculo do tempo  
-    double media = 0;
+
+    struct timespec inicio, fim;  
+    long segundos,nanoSegundos,sSoma = 0,nSoma = 0;
     
     for (int i = 0; i < qtdExecucoes; i++){
         int *arr = malloc(n * sizeof(int));//Realocando memória
         for (int j = 0; j < n; j++){
             arr[j] = j;
         }
-        t = clock();//clock() calcula a quantidade de ticks desde o inicio do programa.
+        
+        clock_gettime(CLOCK_MONOTONIC,&inicio);
         buscaSequencial(arr,0,n-1);
-        t = clock()-t; //agora é só fazer a diferença entre o tempo de fim - inicio da função.
+        clock_gettime(CLOCK_MONOTONIC,&fim);
 
-        media += ((double)t)/CLOCKS_PER_SEC;//faço o cast de t pra double e divido pela constante CLOCK_PER_SEC
+        segundos = fim.tv_sec - inicio.tv_sec;
+        nanoSegundos = fim.tv_nsec - inicio.tv_nsec;
 
-        //CLOCKS_PER_SEC é uma constante com a quantidade de "ticks" por segundo
+        if (nanoSegundos < 0 ){
+            segundos -= 1;
+            nanoSegundos += 1000000000;
+        }
+        
+        nSoma += nanoSegundos;
+        sSoma += segundos;
+
         
         free(arr);
     }
-    printf("Busca_Sequencial, %d, %f\n",n,media/qtdExecucoes);
+    printf("Busca_Sequencial, %d, %ld, %09ld\n",n,sSoma,(double) nSoma/qtdExecucoes);
+}
+
+void teste_buscaBinariaIterativa(int qtdExecucoes, int n){
+
+    struct timespec inicio, fim;  
+    long segundos,nanoSegundos,sSoma = 0,nSoma = 0;
+    
+    for (int i = 0; i < qtdExecucoes; i++){
+        int *arr = malloc(n * sizeof(int));//Realocando memória
+        for (int j = 0; j < n; j++){
+            arr[j] = j;
+        }
+        
+        clock_gettime(CLOCK_MONOTONIC,&inicio);
+        buscaBinariaIterativa(arr, 0, n-1,n-1);
+        clock_gettime(CLOCK_MONOTONIC,&fim);
+
+        segundos = fim.tv_sec - inicio.tv_sec;
+        nanoSegundos = fim.tv_nsec - inicio.tv_nsec;
+
+        if (nanoSegundos < 0 ){
+            segundos -= 1;
+            nanoSegundos += 1000000000;
+        }
+        
+        nSoma += nanoSegundos;
+        sSoma += segundos;
+
+        
+        free(arr);
+    }
+    printf("Busca Binaria Iterativa, %d, %ld, %09ld\n",n,sSoma,(double) nSoma/qtdExecucoes);
+}
+void teste_buscaBinariaRecursiva(int qtdExecucoes, int n){
+
+    struct timespec inicio, fim;  
+    long segundos,nanoSegundos,sSoma = 0,nSoma = 0;
+    
+    for (int i = 0; i < qtdExecucoes; i++){
+        int *arr = malloc(n * sizeof(int));//Realocando memória
+        for (int j = 0; j < n; j++){
+            arr[j] = j;
+        }
+        
+        clock_gettime(CLOCK_MONOTONIC,&inicio);
+        buscaBinariaIterativa(arr, 0, n-1,n-1);
+        clock_gettime(CLOCK_MONOTONIC,&fim);
+
+        segundos = fim.tv_sec - inicio.tv_sec;
+        nanoSegundos = fim.tv_nsec - inicio.tv_nsec;
+
+        if (nanoSegundos < 0 ){
+            segundos -= 1;
+            nanoSegundos += 1000000000;
+        }
+        
+        nSoma += nanoSegundos;
+        sSoma += segundos;
+
+        
+        free(arr);
+    }
+    printf("Busca Binaria Recursiva, %d, %ld, %09ld\n",n,sSoma,(double) nSoma/qtdExecucoes);
 }
 
 
@@ -143,14 +224,23 @@ int main(){
     int tamanhos[] = {10, 100, 1000, 5000};
     int qtdExecucoes = 120;
 
-    printf("Funcao,Tamanho,Tempo\n"); // Cabeçalho CSV
+    printf("Funcao,Tamanho,Segundos,Nano Segundos\n"); // Cabeçalho CSV
 
     for(int i = 0; i < 4; i++){
         int n = tamanhos[i];
         teste_inverter(qtdExecucoes, n);
+    }
+    for(int i = 0; i < 4; i++){
+        int n = tamanhos[i];
         teste_buscaSequencial(qtdExecucoes, n);
-        //teste_buscaBinariaIterativa(qtdExecucoes, n);
-        //teste_buscaBinariaRecursiva(qtdExecucoes, n);
+    }
+    for(int i = 0; i < 4; i++){
+        int n = tamanhos[i];
+        teste_buscaBinariaRecursiva(qtdExecucoes, n);
+    }
+    for(int i = 0; i < 4; i++){
+        int n = tamanhos[i];
+        teste_buscaBinariaIterativa(qtdExecucoes, n);
     }
 
     return 0;
