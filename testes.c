@@ -132,7 +132,7 @@ void teste_buscaSequencial(int qtdExecucoes, int n){
         }
         
         clock_gettime(CLOCK_MONOTONIC,&inicio);
-        buscaSequencial(arr,0,n-1);
+        buscaSequencial(arr,n-1,n+19);
         clock_gettime(CLOCK_MONOTONIC,&fim);
 
         segundos = fim.tv_sec - inicio.tv_sec;
